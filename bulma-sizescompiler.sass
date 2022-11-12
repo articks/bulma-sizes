@@ -1,0 +1,30 @@
+=sizescompiler($suffix)
+    .is
+        @each $side in width, height
+            @each $point in px, vw, vh, p
+                @each $mod in abs, min, max
+                    @for $i from 1 through 10
+                        @if #{$point} == 'px'
+                            @for $j from 0 through 7
+                                @if #{$mod} == 'abs'
+                                    &-#{$side}-#{$i+($j*10)}0#{$point}#{$suffix}
+                                        #{$side}: #{$i+($j*10)}0#{$point}
+                                @else
+                                    &-#{$side}-#{$mod}-#{$i+($j*10)}0#{$point}#{$suffix}
+                                        #{$mod}-#{$side}: #{$i+($j*10)}0#{$point}
+                        @else if #{$point} == 'p'
+                            @if #{$mod} == 'abs'
+                                &-#{$side}-#{$i}#{$point}#{$suffix}
+                                    #{$side}: $i * 10%
+                            @else
+                                &-#{$side}-#{$mod}-#{$i}#{$point}#{$suffix}
+                                    #{$mod}-#{$side}: $i * 10%
+                        @else
+                            @if #{$mod} == 'abs'
+                                &-#{$side}-#{$i}#{$point}#{$suffix}
+                                    #{$side}: #{$i * 10}#{$point}
+                            @else
+                                &-#{$side}-#{$mod}-#{$i}#{$point}#{$suffix}
+                                    #{$mod}-#{$side}: #{$i * 10}#{$point}
+
++sizescompiler('')
